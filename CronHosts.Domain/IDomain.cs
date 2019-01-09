@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace CronHosts.Domain
 {
     public interface IDomain
     {
-        string Execute(string content, DateTime nowUtc);
+        void Execute(TextReader input, TextWriter output, DateTime nowUtc);
 
-        IEnumerable<string> ListCrons(string content);
+        IEnumerable<string> ListCrons(TextReader content);
     }
 }
