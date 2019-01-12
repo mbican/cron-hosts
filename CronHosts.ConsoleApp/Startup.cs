@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Autofac;
 
-namespace CronHosts.Runner
+namespace CronHosts.ConsoleApp
 {
     public static partial class Startup
     {
