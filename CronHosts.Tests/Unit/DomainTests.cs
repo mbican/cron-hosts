@@ -26,7 +26,7 @@ namespace CronHosts.Tests.Unit
 #endcronhosts
             ", @"
 #cronhosts 0 16 * * * ; 0 20 * * *
-# 127.0.0.1 www.facebook.com
+#127.0.0.1 www.facebook.com
 #endcronhosts
             ",
             new DateTime(2010, 1, 1, 13, 0, 0));
@@ -52,7 +52,7 @@ namespace CronHosts.Tests.Unit
         {
             Execute(@"
 #cronhosts 0 16 * * * ; 0 20 * * *
-# 127.0.0.1 www.facebook.com
+#127.0.0.1 www.facebook.com
 #endcronhosts
             ", @"
 #cronhosts 0 16 * * * ; 0 20 * * *
@@ -67,11 +67,11 @@ namespace CronHosts.Tests.Unit
         {
             Execute(@"
 #cronhosts 0 16 * * * ; 0 20 * * *
-# 127.0.0.1 www.facebook.com
+#127.0.0.1 www.facebook.com
 #endcronhosts
             ", @"
 #cronhosts 0 16 * * * ; 0 20 * * *
-# 127.0.0.1 www.facebook.com
+#127.0.0.1 www.facebook.com
 #endcronhosts
             ",
             new DateTime(2010, 1, 1, 20, 0, 0));
@@ -85,7 +85,14 @@ namespace CronHosts.Tests.Unit
             {
                 Domain.Execute(inputReader, outputWriter, dateTimeUtc);
             }
-            outputBuilder.ToString().ShouldEqual(expectedOutput);
+            var output = outputBuilder.ToString();
+            if (output != expectedOutput)
+            {
+                var expectedOutput2 = expectedOutput + Environment.NewLine;
+                if (output == expectedOutput2)
+                    expectedOutput = expectedOutput2;
+            }
+            output.ShouldEqual(expectedOutput);
         }
     }
 }
