@@ -4,7 +4,7 @@ using System.Text;
 using Autofac;
 using CronHosts.Domain;
 
-namespace CronHosts.Runner
+namespace CronHosts.ConsoleApp
 {
     public static partial class Startup
     {
