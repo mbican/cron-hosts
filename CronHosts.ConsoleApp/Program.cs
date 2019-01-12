@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace CronHosts.Runner
+namespace CronHosts.ConsoleApp
 {
     public class Program
     {
