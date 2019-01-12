@@ -1,20 +1,25 @@
-﻿using System;
+﻿using Shuttle.Core.Cron;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CronHosts.Domain
 {
-    public class Domain: IDomain
+    public class Domain : IDomain
     {
-        public void Execute(TextReader input, TextWriter output, DateTime nowUtc)
+        public async Task Execute(TextReader input, TextWriter output, DateTime nowUtc)
         {
-            throw new NotImplementedException();
+            var line = (string?)null;
+            while ((line = await input.ReadLineAsync()) != null)
+            {
+            }
         }
 
-        public IEnumerable<string> ListCrons(TextReader content)
+        public async IAsyncEnumerable<(CronExpression Begin, CronException End)> ListCrons(TextReader content)
         {
-            throw new NotImplementedException();
+            yield return (null, null);
         }
     }
 }

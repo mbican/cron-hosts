@@ -1,13 +1,16 @@
-﻿using System;
+﻿using Shuttle.Core.Cron;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace CronHosts.Domain
 {
     public interface IDomain
     {
-        void Execute(TextReader input, TextWriter output, DateTime nowUtc);
+        Task Execute(TextReader input, TextWriter output, DateTime nowUtc);
 
-        IEnumerable<string> ListCrons(TextReader content);
+        IAsyncEnumerable<(CronExpression Begin, CronException End)> ListCrons(TextReader content);
     }
 }
