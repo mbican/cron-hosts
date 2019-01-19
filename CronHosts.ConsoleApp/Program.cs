@@ -10,8 +10,10 @@ namespace CronHosts.ConsoleApp
 
         public static async Task Main(string[] args)
         {
-            Container = Startup.Configure();
-            Console.WriteLine("Hello World!");
+            using (Container = Startup.Configure())
+            {
+                Console.WriteLine("Hello World!");
+            }
         }
     }
 }

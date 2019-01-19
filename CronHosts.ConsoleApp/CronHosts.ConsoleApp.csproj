@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.8.1" />
+    <PackageReference Include="commandlineparser" Version="2.4.3" />
   </ItemGroup>
 
   <ItemGroup>
