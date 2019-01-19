@@ -11,17 +11,20 @@ namespace CronHosts.Domain
     {
         public const string BeginRegexDefault = @"^\s*#cronhosts((?:\s+(?:[-0-9a-z*,?#/])+){5})\s+;((?:\s+(?:[-0-9a-z*,?#/])+){5})\s*$";
         public const string EndRegexDefault = @"^\s*#endcronhosts\s*$";
-        public const string CommentRegexDefault = @"^\s*#";
+        public const string CommentDefault = "#cronhostsout ";
+        public const string CommentRegexDefault = @"^#cronhostsout\s?";
 
         public Regex BeginRegex { get; set; }
         public Regex EndRegex { get; set; }
         public Regex CommentRegex { get; set; }
+        public string Comment { get; set; }
 
         public Domain()
         {
             BeginRegex = new Regex(BeginRegexDefault, RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(10));
             EndRegex = new Regex(EndRegexDefault, RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(10));
             CommentRegex = new Regex(CommentRegexDefault, RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.CultureInvariant, TimeSpan.FromMilliseconds(10));
+            Comment = CommentDefault;
         }
 
         public async Task Execute(TextReader input, TextWriter output, DateTime dateTimeUtc)
@@ -96,7 +99,7 @@ namespace CronHosts.Domain
                 return line;
             else
                 // comment out line
-                return "#" + line;
+                return Comment + line;
         }
     }
 }
