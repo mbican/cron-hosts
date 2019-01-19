@@ -2,13 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace CronHosts.Domain
 {
-    public class Domain : IDomain
+    public class Domain: IDomain
     {
         public const string BeginRegexDefault = @"^\s*#cronhosts((?:\s+(?:[-0-9a-z*,?#/])+){5})\s+;((?:\s+(?:[-0-9a-z*,?#/])+){5})\s*$";
         public const string EndRegexDefault = @"^\s*#endcronhosts\s*$";
@@ -44,7 +43,13 @@ namespace CronHosts.Domain
                         var beginCron = new CronExpression(match.Groups[1].Value, dateTimeUtc);
                         var endCron = new CronExpression(match.Groups[2].Value, dateTimeUtc);
                         inside = true;
-                        uncomment = endCron.GetPreviousOccurrence(dateTimeUtc) < beginCron.GetPreviousOccurrence(dateTimeUtc);
+                        var prevEnd = endCron.PreviousOccurrence();
+                        var prevBegin = beginCron.PreviousOccurrence();
+                        if (endCron.GetNextOccurrence(prevEnd) <= dateTimeUtc)
+                            endCron.NextOccurrence();
+                        if (beginCron.GetNextOccurrence(prevBegin) <= dateTimeUtc)
+                            beginCron.NextOccurrence();
+                        uncomment = endCron.CurrentDate < beginCron.CurrentDate;
                     }
                     await output.WriteLineAsync(line);
                 }
