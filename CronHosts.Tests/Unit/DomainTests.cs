@@ -25,7 +25,7 @@ namespace CronHosts.Tests.Unit
 #endcronhosts
             ", @"
 #cronhosts 0 16 * * * ; 0 20 * * *
-#127.0.0.1 www.facebook.com
+#cronhostsout 127.0.0.1 www.facebook.com
 #endcronhosts
             ",
             new DateTime(2010, 1, 1, 13, 0, 0));
@@ -51,7 +51,7 @@ namespace CronHosts.Tests.Unit
         {
             Execute(@"
 #cronhosts 0 16 * * * ; 0 20 * * *
-#127.0.0.1 www.facebook.com
+#cronhostsout 127.0.0.1 www.facebook.com
 #endcronhosts
             ", @"
 #cronhosts 0 16 * * * ; 0 20 * * *
@@ -66,11 +66,11 @@ namespace CronHosts.Tests.Unit
         {
             Execute(@"
 #cronhosts 0 16 * * * ; 0 20 * * *
-#127.0.0.1 www.facebook.com
+#cronhostsout 127.0.0.1 www.facebook.com
 #endcronhosts
             ", @"
 #cronhosts 0 16 * * * ; 0 20 * * *
-#127.0.0.1 www.facebook.com
+#cronhostsout 127.0.0.1 www.facebook.com
 #endcronhosts
             ",
             new DateTime(2010, 1, 1, 20, 0, 0));
