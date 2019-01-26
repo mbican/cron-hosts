@@ -95,11 +95,11 @@ namespace CronHosts.ConsoleApp
                     using (var reader = new StreamReader(existingFile, true))
                     // open temp file for writing
                     using (var writer = new StreamWriter(tempFile))
-
+                        // execute cronhosts processes existing file into temp file
                         await Domain.Execute(reader, writer, DateTimeService.GetUtcNow());
                     // swap completed temp file for existing file while renaming existing file to bakFile in case of something goes wrong
                     File.Replace(tempFile, existingFile, bakFile);
-                    // after successful swap delete the old file renamed to bakFile
+                    // after successful swap delete the original file renamed to bakFile
                     File.Delete(bakFile);
                 }
                 catch
