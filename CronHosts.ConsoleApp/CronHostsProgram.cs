@@ -1,10 +1,10 @@
 ﻿using CommandLine;
 using CronHosts.Domain;
+using Efaut;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using ValueUtils;
 
 namespace CronHosts.ConsoleApp
 {
@@ -30,7 +30,7 @@ namespace CronHosts.ConsoleApp
 
         #endregion Dependencies
 
-        public sealed class Arguments: ValueObject<Arguments>
+        public sealed class Arguments: ValueObject
         {
             [Value(0)]
             public string? File { get; }

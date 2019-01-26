@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="commandlineparser" Version="2.4.3" />
-    <PackageReference Include="ValueUtils" Version="1.4.0" />
+    <PackageReference Include="EfautValueObject" Version="0.5.1" />
   </ItemGroup>
 
   <ItemGroup>
