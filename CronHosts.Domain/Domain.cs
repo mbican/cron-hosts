@@ -29,15 +29,15 @@ namespace CronHosts.Domain
 
         public async Task Execute(TextReader input, TextWriter output, DateTime dateTimeUtc)
         {
-#nullable safeonly
-            string? line;
+            string? lineOrNull;
             // we are inside #cronhosts block
             var inside = false;
             // wheter to uncomment or comment out lines inside #cronhosts block
             var uncomment = false;
             var lineNumber = 0;
-            while ((line = await input.ReadLineAsync()) != null)
+            while ((lineOrNull = await input.ReadLineAsync()) != null)
             {
+                var line = lineOrNull!;
                 lineNumber++;
                 if (!inside)
                 {
@@ -74,7 +74,6 @@ namespace CronHosts.Domain
                     }
                 }
             }
-#nullable restore
         }
 
         public async IAsyncEnumerable<(CronExpression Begin, CronException End)> ListCrons(TextReader content)
