@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using Autofac;
 
-namespace CronHosts
+namespace CronHosts.ConsoleApp
 {
     public static partial class Startup
     {
-        public static IContainer Configure()
+        public static IContainer Build()
         {
             var builder = new ContainerBuilder();
             ConfigureAutofac(builder);
