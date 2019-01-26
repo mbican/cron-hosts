@@ -7,7 +7,7 @@ namespace CronHosts.ConsoleApp
 {
     public static partial class Startup
     {
-        public static IContainer Configure()
+        public static IContainer Build()
         {
             var builder = new ContainerBuilder();
             ConfigureAutofac(builder);
