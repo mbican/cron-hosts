@@ -70,19 +70,36 @@ namespace CronHosts.ConsoleApp
 
         protected async Task DoRun(Arguments arguments)
         {
-            var existingFile = arguments.File;
-            var tempFile = $"{existingFile}_{Random.Next():x8}.tmp";
-            try
-            {
-                using (var reader = new StreamReader(existingFile, true))
-                using (var writer = new StreamWriter(tempFile))
+            // if file name has been provided
+            if (arguments.File == null)
+            { // use standard input
+                using (var input = Console.OpenStandardInput())
+                using (var reader = new StreamReader(input))
+                using (var output = Console.OpenStandardOutput())
+                using (var writer = new StreamWriter(output))
                     await Domain.Execute(reader, writer, DateTimeService.GetUtcNow());
-                File.Replace(tempFile, existingFile, $"{existingFile}_{Random.Next():x8}.bak");
             }
-            catch
-            {
-                try { File.Delete(tempFile); } catch { }
-                throw;
+            else
+            { // use file
+                var existingFile = arguments.File;
+                // create name for a temp file
+                var tempFile = $"{existingFile}_{Random.Next():x8}.tmp";
+                try
+                {
+                    // open existing file for reading
+                    using (var reader = new StreamReader(existingFile, true))
+                    // create temp file for writing
+                    using (var writer = new StreamWriter(tempFile))
+                        await Domain.Execute(reader, writer, DateTimeService.GetUtcNow());
+                    // swap complete temp file for existing file
+                    File.Replace(tempFile, existingFile, $"{existingFile}_{Random.Next():x8}.bak");
+                }
+                catch
+                {
+                    // delete temp file in case of error
+                    try { File.Delete(tempFile); } catch { }
+                    throw;
+                }
             }
         }
 
