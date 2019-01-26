@@ -78,7 +78,6 @@ namespace CronHosts.Domain
 
         public async IAsyncEnumerable<(CronExpression Begin, CronException End)> ListCrons(TextReader content)
         {
-            await Task.CompletedTask;
             yield return (null, null);
         }
 
