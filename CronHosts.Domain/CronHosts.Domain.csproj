@@ -4,7 +4,7 @@
     <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <LangVersion>8.0</LangVersion>
-    <NullableReferenceTypes>true</NullableReferenceTypes>
+    <NullableContextOptions>enable</NullableContextOptions>
     <ApplicationIcon />
     <StartupObject />
   </PropertyGroup>
@@ -13,5 +13,4 @@
     <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="Shuttle.Core.Cron" Version="10.0.6" />
   </ItemGroup>
-
 </Project>
