@@ -1,19 +1,17 @@
 ﻿using Autofac;
-using System;
 using System.Threading.Tasks;
 
 namespace CronHosts.ConsoleApp
 {
-    public class Program
+    public static class Program
     {
         private static IContainer Container { get; set; }
 
-        public static async Task Main(string[] args)
+        public static async Task<int> Main(string[] args)
         {
-            using (Container = Startup.Configure())
-            {
-                Console.WriteLine("Hello World!");
-            }
+            using (Container = Startup.Build())
+            using (var scope = Container.BeginLifetimeScope())
+                return await scope.Resolve<IProgram>().Run(args);
         }
     }
 }

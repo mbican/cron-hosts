@@ -29,7 +29,8 @@ namespace CronHosts.Domain
 
         public async Task Execute(TextReader input, TextWriter output, DateTime dateTimeUtc)
         {
-            var line = (string?)null;
+#nullable safeonly
+            string? line;
             // we are inside #cronhosts block
             var inside = false;
             // wheter to uncomment or comment out lines inside #cronhosts block
@@ -73,6 +74,7 @@ namespace CronHosts.Domain
                     }
                 }
             }
+#nullable restore
         }
 
         public async IAsyncEnumerable<(CronExpression Begin, CronException End)> ListCrons(TextReader content)
