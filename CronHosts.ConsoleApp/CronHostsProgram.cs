@@ -83,21 +83,40 @@ namespace CronHosts.ConsoleApp
             { // use file
                 var existingFile = arguments.File;
                 // create name for a temp file
-                var tempFile = $"{existingFile}_{Random.Next():x8}.tmp";
+                var random = Random.Next();
+                var tempFile = $"{existingFile}_{random:x8}.tmp";
+                // create name for a backup file
+                var bakFile = $"{existingFile}_{random:x8}.bak";
                 try
                 {
+                    // copy existingFile to tempFile so it has original metadata
+                    File.Copy(existingFile, tempFile);
                     // open existing file for reading
                     using (var reader = new StreamReader(existingFile, true))
-                    // create temp file for writing
+                    // open temp file for writing
                     using (var writer = new StreamWriter(tempFile))
+
                         await Domain.Execute(reader, writer, DateTimeService.GetUtcNow());
-                    // swap complete temp file for existing file
-                    File.Replace(tempFile, existingFile, $"{existingFile}_{Random.Next():x8}.bak");
+                    // swap completed temp file for existing file while renaming existing file to bakFile in case of something goes wrong
+                    File.Replace(tempFile, existingFile, bakFile);
+                    // after successful swap delete the old file renamed to bakFile
+                    File.Delete(bakFile);
                 }
                 catch
-                {
-                    // delete temp file in case of error
-                    try { File.Delete(tempFile); } catch { }
+                {   // in case of an error
+                    // try restore original file from back up
+                    try { File.Move(bakFile, existingFile); } catch { }
+                    try
+                    {
+                        // if original file exists
+                        if (File.Exists(existingFile))
+                            // delete temp file
+                            File.Delete(tempFile);
+                        else
+                            // otherwise rename tempFile to original file
+                            File.Move(tempFile, existingFile);
+                    }
+                    catch { }
                     throw;
                 }
             }
