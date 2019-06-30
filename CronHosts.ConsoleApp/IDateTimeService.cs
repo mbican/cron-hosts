@@ -7,5 +7,7 @@ namespace CronHosts.ConsoleApp
     public interface IDateTimeService
     {
         DateTime GetUtcNow();
+
+        DateTimeOffset GetLocalTime();
     }
 }

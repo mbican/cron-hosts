@@ -27,7 +27,7 @@ namespace CronHosts.Domain
             Comment = CommentDefault;
         }
 
-        public async Task Execute(TextReader input, TextWriter output, DateTime dateTimeUtc)
+        public async Task Execute(TextReader input, TextWriter output, DateTime now)
         {
             string? lineOrNull;
             // we are inside #cronhosts block
@@ -44,14 +44,14 @@ namespace CronHosts.Domain
                     var match = BeginRegex.Match(line);
                     if (match.Success)
                     {
-                        var beginCron = new CronExpression(match.Groups[1].Value, dateTimeUtc);
-                        var endCron = new CronExpression(match.Groups[2].Value, dateTimeUtc);
+                        var beginCron = new CronExpression(match.Groups[1].Value, now);
+                        var endCron = new CronExpression(match.Groups[2].Value, now);
                         inside = true;
                         var prevEnd = endCron.PreviousOccurrence();
                         var prevBegin = beginCron.PreviousOccurrence();
-                        if (endCron.GetNextOccurrence(prevEnd) <= dateTimeUtc)
+                        if (endCron.GetNextOccurrence(prevEnd) <= now)
                             endCron.NextOccurrence();
-                        if (beginCron.GetNextOccurrence(prevBegin) <= dateTimeUtc)
+                        if (beginCron.GetNextOccurrence(prevBegin) <= now)
                             beginCron.NextOccurrence();
                         uncomment = endCron.CurrentDate < beginCron.CurrentDate;
                     }

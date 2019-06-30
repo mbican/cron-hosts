@@ -1,16 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <LangVersion>8.0</LangVersion>
-    <NullableContextOptions>enable</NullableContextOptions>
-    <Version>0.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.8.1" />
-    <PackageReference Include="commandlineparser" Version="2.4.3" />
+    <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="commandlineparser" Version="2.5.0" />
     <PackageReference Include="EfautValueObject" Version="0.5.1" />
   </ItemGroup>
 
