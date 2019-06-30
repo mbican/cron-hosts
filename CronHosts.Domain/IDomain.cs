@@ -14,7 +14,7 @@ namespace CronHosts.Domain
         Regex EndRegex { get; set; }
         Regex CommentRegex { get; set; }
 
-        Task Execute(TextReader input, TextWriter output, DateTime nowUtc);
+        Task Execute(TextReader input, TextWriter output, DateTime now);
 
         IAsyncEnumerable<(CronExpression Begin, CronException End)> ListCrons(TextReader content);
     }

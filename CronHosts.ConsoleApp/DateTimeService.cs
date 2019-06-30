@@ -10,5 +10,10 @@ namespace CronHosts.ConsoleApp
         {
             return DateTime.UtcNow;
         }
+
+        public DateTimeOffset GetLocalTime()
+        {
+            return DateTimeOffset.Now;
+        }
     }
 }

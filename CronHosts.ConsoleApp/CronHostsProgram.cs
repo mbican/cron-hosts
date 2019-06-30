@@ -77,7 +77,7 @@ namespace CronHosts.ConsoleApp
                 using (var reader = new StreamReader(input))
                 using (var output = Console.OpenStandardOutput())
                 using (var writer = new StreamWriter(output))
-                    await Domain.Execute(reader, writer, DateTimeService.GetUtcNow());
+                    await Domain.Execute(reader, writer, DateTimeService.GetLocalTime().DateTime);
             }
             else
             { // use file
@@ -96,7 +96,7 @@ namespace CronHosts.ConsoleApp
                     // open temp file for writing
                     using (var writer = new StreamWriter(tempFile))
                         // execute cronhosts processes existing file into temp file
-                        await Domain.Execute(reader, writer, DateTimeService.GetUtcNow());
+                        await Domain.Execute(reader, writer, DateTimeService.GetLocalTime().DateTime);
                     // swap completed temp file for existing file while renaming existing file to bakFile in case of something goes wrong
                     File.Replace(tempFile, existingFile, bakFile);
                     // after successful swap delete the original file renamed to bakFile

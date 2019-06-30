@@ -76,13 +76,13 @@ namespace CronHosts.Tests.Unit
             new DateTime(2010, 1, 1, 20, 0, 0));
         }
 
-        protected void Execute(string input, string expectedOutput, DateTime dateTimeUtc)
+        protected void Execute(string input, string expectedOutput, DateTime dateTime)
         {
             var outputBuilder = new StringBuilder();
             using (var inputReader = new StringReader(input))
             using (var outputWriter = new StringWriter(outputBuilder))
             {
-                Domain.Execute(inputReader, outputWriter, dateTimeUtc);
+                Domain.Execute(inputReader, outputWriter, dateTime);
             }
             var output = outputBuilder.ToString();
             if (output != expectedOutput)
